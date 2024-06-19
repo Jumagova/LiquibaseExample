@@ -1,0 +1,21 @@
+version: '3.1'
+
+services:
+  intelectronica-test-liquibase:
+    container_name: intelectronica-test-liquibase
+    image: liquibase/liquibase
+    volumes:
+      - ./config/changelog.xml:/liquibase/changelog.xml
+      - ./scripts/dbChanges.yaml:/liquibase/scripts/dbChanges.yaml
+    command: >
+      liquibase
+      --url=jdbc:postgresql://intelectronica-test-db:5432/intelectronica-test-db
+      --username=${POSTGRES_USER}
+      --password=${POSTGRES_PASSWORD}
+      --changeLogFile=/scripts/dbChanges.yaml
+      update
+    networks:
+      - intelectronica-net
+
+networks:
+  intelectronica-net:

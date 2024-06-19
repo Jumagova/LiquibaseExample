@@ -1,0 +1,40 @@
+@startuml exampleDB
+
+skinparam linetype polyline
+skinparam linetype ortho
+
+entity User {
+    * id: ID
+    --
+    * name: String
+    * email: String
+}
+
+entity Product {
+    * id: ID
+    --
+    * name: String
+    * price: Decimal
+}
+
+entity Order {
+    * id: ID
+    --
+    * user_id: ID
+    * order_date: Date
+}
+
+entity OrderItem {
+    * id: ID
+    --
+    * order_id: ID
+    * product_id: ID
+    * quantity: Integer
+    * price: Decimal
+}
+
+User ||-down-o{ Order 
+Order ||-down-o{ OrderItem
+OrderItem ||-down-o{ Product
+
+@enduml
